@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="QiDian:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/QiDian_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="QiDian/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="QiDian" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
