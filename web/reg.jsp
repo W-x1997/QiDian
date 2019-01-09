@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form action="register" method="get">
+<form action="register" method="post">
     用户名<input type="text" value="" name="uaccount"/>
     <br />
     密码<input type="password" value="" name="upwd"/>

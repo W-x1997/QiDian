@@ -1,68 +1,72 @@
 package com.iweb.qidian.utils;
 
-import com.iweb.qidian.model.UserInfo;
-
-import java.sql.*;
-import java.util.Date;
-
-public class JDBCUtil {
-
-
-
-    public static void main(String []args)  {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
-        Connection conn; //数据库的依次连接封装 Connection对象
-        Statement state; //执行sql语句
+public class JdbcUtil {
 
-        ResultSet result;//SQL查询结果集
+	public static Connection getConn() {
+		Connection conn = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://localhost:3306/book";
+			String user = "root";
+			String password = "jsjywx123";
+			conn = DriverManager.getConnection(url, user, password);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} finally {
+				
+		}
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
+		return conn;
+	}
 
-            String url="jdbc:mysql://localhost:3306/book";
+	public static ResultSet select(String sql) {
+		Connection conn = getConn();
+		Statement statement = null;
+		ResultSet result = null;
+		try {
+			statement = conn.createStatement();
+			result = statement.executeQuery(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
-            String username="root";
-            String password="jsjywx123";
-
-            conn=DriverManager.getConnection(url,username,password);
-
-            state=conn.createStatement();
-
-            UserInfo user=new UserInfo();
-            user.setUaccount("huanghaojie");
-            user.setUpwd("12345");
-
-            Date date=new Date();
-           Timestamp time=new Timestamp(date.getTime());
-           user.setCreatetime(time);
-           user.setNickname("黄豪杰");
-           user.setMember(1);
-           user.setLasttime(time);
-
-           String sql="INSERT INTO user_info VALUES (0,'"+user.getUaccount()+"',"
-                   +"'"
-                   +user.getUpwd()+"','"
-                   +user.getCreatetime()+"','"
-                   +user.getNickname()+"','"
-                   +user.getLasttime()+"',"
-                   +user.getMember()+")";
-
-
-
-           System.out.println(sql);
-
-           state.execute(sql);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-
-    }
+	public static boolean insert(String sql) {
+		Connection conn = getConn();
+		Statement statement = null;
+		boolean flag=true ;
+		try {
+			statement = conn.createStatement();
+		
+			statement.execute(sql);
+		} catch (SQLException e) {
+			flag=false;
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	public static void update(String sql) {
+		Connection conn = getConn();
+		Statement statement = null;
+		try {
+			statement = conn.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

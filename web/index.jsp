@@ -9,26 +9,20 @@
 <html>
   <head>
     <title>$Title$</title>
+    <script type="text/javascript" src="jquery-2.1.1.js"> </script>
+    <script type="text/javascript">
+        function reg(){
+            var reg=$("#register");
+            window.location.href="reg.jsp";
+        }
+    </script>
   </head>
   <body>
   <h1>Welcome to NJUT!</h1>
 
 
-  <form action="register" method="get">
-    用户名<input type="text" value="" name="uaccount"/>
-    <br />
-    密码<input type="password" value="" name="upwd"/>
-    <br />
-    昵称 <input type="text" value="" name="nickname"/>
-    <br />
 
-    <input type="submit" value="提交">
-
-
-
-  </form>
-
-  <input type="button" value="注册">
+  <input id="register" type="button" onclick="reg()" value="注册">
   <input type="button" value="登陆">
 
   </body>
