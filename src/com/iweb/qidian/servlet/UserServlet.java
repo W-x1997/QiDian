@@ -33,8 +33,9 @@ public class UserServlet extends HttpServlet {
 
 
         System.out.println(sql);
-      boolean res=JdbcUtil.insert(sql);
-      System.out.println("是否成功："+res);
+        //boolean res=JdbcUtil.insert(sql);
+        //  System.out.println("是否成功："+res);
+
     }
 
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
