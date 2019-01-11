@@ -7,6 +7,7 @@ import com.iweb.qidian.service.UserServiceI;
 import com.iweb.qidian.service.UserServiceImp;
 import com.iweb.qidian.utils.JdbcUtil;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -68,11 +69,25 @@ public class UserServlet extends HttpServlet {
 
 
 
-    public void register(HttpServletRequest request,HttpServletResponse response){
-        String uaccount=request.getParameter("uaccount");
-        String upwd=request.getParameter("upwd");
+    public void register(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
+        String uaccount=request.getParameter("uaccout");
+        String upwd1=request.getParameter("password");
+        String upwd2=request.getParameter("password2");
+        String nickname=request.getParameter("nickname");
+        Date date=new Date();
+        Timestamp time=new Timestamp(date.getTime());
+        String sql="insert into user_info values (0,' "+uaccount
+                +"','"+upwd1+"','"+time+"','"+nickname+"','"+time+"',"
+                +1+")";
+        boolean res=JdbcUtil.insert(sql);
+        System.out.println("是否成功："+res);
 
-
+        if(res==true){
+            RequestDispatcher d = request.getRequestDispatcher("/index.jsp");
+            d.forward(request, response);
+        }else{
+            System.out.println("Err!");
+        }
     }
 
     public void login(HttpServletRequest request,HttpServletResponse response){
@@ -80,8 +95,9 @@ public class UserServlet extends HttpServlet {
     }
 
 
-    public void reg(HttpServletRequest request,HttpServletResponse response){
-
+    public void reg(HttpServletRequest request,HttpServletResponse response)throws IOException, ServletException{
+        RequestDispatcher d = request.getRequestDispatcher("/jsp/include/fore/register.jsp");
+        d.forward(request, response);
     }
 
     public void logout(HttpServletRequest request,HttpServletResponse response){

@@ -23,7 +23,7 @@
 		<servlet-name>reg</servlet-name>
 		<url-pattern>/reg</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>login</servlet-name>
 		<servlet-class>com.iweb.qidian.servlet.UserServlet</servlet-class>
@@ -41,7 +41,8 @@
 		<servlet-name>register</servlet-name>
 		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
-	
+
+
 	<servlet>
 		<servlet-name>logout</servlet-name>
 		<servlet-class>com.iweb.qidian.servlet.UserServlet</servlet-class>
