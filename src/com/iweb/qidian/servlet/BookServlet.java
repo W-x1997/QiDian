@@ -1,4 +1,8 @@
 package com.iweb.qidian.servlet;
 
-public class BookServlet {
+import javax.servlet.http.HttpServlet;
+
+public class BookServlet extends HttpServlet {
+
+
 }
