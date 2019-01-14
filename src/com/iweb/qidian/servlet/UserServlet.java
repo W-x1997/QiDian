@@ -5,6 +5,8 @@ package com.iweb.qidian.servlet;
 
 import com.iweb.qidian.service.UserServiceI;
 import com.iweb.qidian.service.UserServiceImp;
+import com.iweb.qidian.utils.DataUtil;
+import com.iweb.qidian.utils.JSONUtils;
 import com.iweb.qidian.utils.JdbcUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -79,18 +82,26 @@ public class UserServlet extends HttpServlet {
         String sql="insert into user_info values (0,' "+uaccount
                 +"','"+upwd1+"','"+time+"','"+nickname+"','"+time+"',"
                 +1+")";
+
         boolean res=JdbcUtil.insert(sql);
         System.out.println("是否成功："+res);
-
-        if(res==true){
-            RequestDispatcher d = request.getRequestDispatcher("/index.jsp");
-            d.forward(request, response);
-        }else{
-            System.out.println("Err!");
-        }
+        DataUtil data = new DataUtil();
+        data.setResult(res);
+        PrintWriter pw = response.getWriter();
+        JSONUtils.writeJSON(pw,data);
+//
+//        if(res==true){
+//            RequestDispatcher d = request.getRequestDispatcher("/index.jsp");
+//            d.forward(request, response);
+//        }else{
+//            System.out.println("Err!");
+//        }
     }
 
-    public void login(HttpServletRequest request,HttpServletResponse response){
+    public void login(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
 
     }
 

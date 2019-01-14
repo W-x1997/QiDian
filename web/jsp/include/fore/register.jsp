@@ -87,8 +87,8 @@
 					layer.msg(data.msg)
 					$(".layui-btn").removeAttr("disabled");
 				}
-				//layer.close();
-				//window.location.href="./index.jsp";
+				layer.close();
+				window.location.href="./index.jsp";
 
 			}, "json");
 			return false;
