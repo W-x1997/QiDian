@@ -80,7 +80,7 @@
 			var url = "register";
 			$.post(url, json, function(data) {
 				if (data.result) {
-					//layer.msg(data.msg);
+					layer.msg(data.msg);
 					//setTimeout("skipIndex()", 3000);
 					setInterval("skipIndex()", 1000);
 				} else {
@@ -88,7 +88,7 @@
 					$(".layui-btn").removeAttr("disabled");
 				}
 				layer.close();
-				window.location.href="./index.jsp";
+				//window.location.href="./index.jsp";
 
 			}, "json");
 			return false;
@@ -103,7 +103,7 @@
 	function skipIndex(msg) {
 		layer.msg("注册成功" + time + "秒后跳转首页")
 		if (time == 0) {
-			window.location.href = "/qidian/";
+			window.location.href = "./index.jsp";
 		}
 		time--;
 

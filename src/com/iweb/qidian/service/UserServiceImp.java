@@ -7,10 +7,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.iweb.qidian.model.UserInfo;
 import com.iweb.qidian.utils.JdbcUtil;
-
 
 public class UserServiceImp implements UserServiceI {
 

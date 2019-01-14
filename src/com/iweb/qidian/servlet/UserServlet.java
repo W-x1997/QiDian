@@ -85,10 +85,22 @@ public class UserServlet extends HttpServlet {
 
         boolean res=JdbcUtil.insert(sql);
         System.out.println("是否成功："+res);
+
+        String msg;
+
+
         DataUtil data = new DataUtil();
         data.setResult(res);
+
+        if(res){
+         msg="注册成功！";
+        }else
+            msg="注册失败";
+
         PrintWriter pw = response.getWriter();
+        data.setMsg(msg);
         JSONUtils.writeJSON(pw,data);
+
 //
 //        if(res==true){
 //            RequestDispatcher d = request.getRequestDispatcher("/index.jsp");
