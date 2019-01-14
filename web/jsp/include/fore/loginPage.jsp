@@ -23,7 +23,7 @@
 			var val = $("#input-val").val().toLowerCase();
 			var num = show_num.join("");
 			if (val == num) {
-				var url = "/qidian/login";
+				var url = "/login";
 				$.post(url, json, function(data) {
 					if (data.result) {
 						layer.msg(data.msg);

@@ -3,6 +3,7 @@ package com.iweb.qidian.servlet;
 
 
 
+import com.iweb.qidian.model.UserInfo;
 import com.iweb.qidian.service.UserServiceI;
 import com.iweb.qidian.service.UserServiceImp;
 import com.iweb.qidian.utils.DataUtil;
@@ -14,10 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +76,8 @@ public class UserServlet extends HttpServlet {
 
 
     public void register(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String uaccount=request.getParameter("uaccout");
         String upwd1=request.getParameter("password");
         String upwd2=request.getParameter("password2");
@@ -110,9 +115,42 @@ public class UserServlet extends HttpServlet {
 //        }
     }
 
-    public void login(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-        response.setCharacterEncoding("UTF-8");
+    public void login(HttpServletRequest request,HttpServletResponse response) throws IOException {
+       response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+
+        String uaccount=request.getParameter("uaccout");
+        String upwd1=request.getParameter("upwd");
+
+        UserInfo user=new UserInfo();
+        user.setUaccount(uaccount);
+        user.setUpwd(upwd1);
+        List<UserInfo> list;
+        list=userServiceI.selectByUser(user);
+
+        System.out.println(uaccount+" "+upwd1+" "+list.size());
+
+        DataUtil data=new DataUtil();
+        String msg;
+
+        if(list.size()==0){
+            data.setResult(false);
+            msg="用户名或密码错误！";
+
+        }else {
+            data.setResult(true);
+            HttpSession session=request.getSession();
+            session.setAttribute("flag","1");
+
+            session.setAttribute("loginUser",list.get(0));
+            msg="登陆成功！";
+        }
+        data.setMsg(msg);
+
+        PrintWriter pw = response.getWriter();
+
+        JSONUtils.writeJSON(pw,data);
+
 
 
     }
@@ -123,7 +161,11 @@ public class UserServlet extends HttpServlet {
         d.forward(request, response);
     }
 
-    public void logout(HttpServletRequest request,HttpServletResponse response){
+    public void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
+      HttpSession session=request.getSession();
+      session.setMaxInactiveInterval(0);
+      session.invalidate();
+      response.sendRedirect("");
 
     }
 
