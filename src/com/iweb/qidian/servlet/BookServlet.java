@@ -1,7 +1,9 @@
 package com.iweb.qidian.servlet;
 
+import com.iweb.qidian.model.Chapter;
 import com.iweb.qidian.pojo.BookInfoP;
 import com.iweb.qidian.service.BookServiceImp;
+import com.iweb.qidian.utils.ReadWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +35,39 @@ public void selectAllBook(HttpServletRequest request, HttpServletResponse respon
 
 
 
+    public void showchapter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+           String bno=request.getParameter("bno");
+           String chno=request.getParameter("chno");
+        Chapter chapter=bookServiceI.selectChapterByVnoChno(bno,chno);
+        List<String> chapterList=ReadWriter.readChapterByUrl(chapter.getChurl());
+        BookInfoP book=bookServiceI.selectBookDetailByBno(String.valueOf(chapter.getBno()));
+        request.setAttribute("chapterList",chapterList);
+        request.setAttribute("book",book);
+        request.setAttribute("chapter",chapter);
+
+        request.getRequestDispatcher("jsp/book/showChapter.jsp").forward(request,response);
+
+
+
+    }
+
+
+
+    public void showdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+    request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
+    String bno = request.getParameter("bno");
+    BookInfoP bookInfoP = bookServiceI.selectBookDetailByBno(bno);
+    request.setAttribute("book", bookInfoP);
+    request.getRequestDispatcher("jsp/book/bookDetail.jsp").forward(request, response);
+
+
+
+    }
+
 
 
 
@@ -43,6 +78,13 @@ public void selectAllBook(HttpServletRequest request, HttpServletResponse respon
             case "/showBook":
                 selectAllBook(request, response);
                 break;
+            case "/bookDetail":
+               showdetail(request, response);
+                break;
+            case "/chapter":
+                showchapter(request,response);
+                break;
+
         }
     }
 
