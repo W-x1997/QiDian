@@ -19,6 +19,7 @@ public void selectAllBook(HttpServletRequest request, HttpServletResponse respon
           List<BookInfoP> bookInfoList=bookServiceI.selectAllBook(sql);
           request.setAttribute("bookList",bookInfoList);
 
+
     try {
         request.getRequestDispatcher("jsp/book/showSearch.jsp").forward(request,response);
     } catch (ServletException e) {
@@ -29,5 +30,28 @@ public void selectAllBook(HttpServletRequest request, HttpServletResponse respon
 
 
 }
+
+
+
+
+
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        String path = request.getServletPath();
+        switch (path) {
+            case "/showBook":
+                selectAllBook(request, response);
+                break;
+        }
+    }
+
+
+
+    protected void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException {
+
+        doPost(request,response);
+    }
+
 
 }

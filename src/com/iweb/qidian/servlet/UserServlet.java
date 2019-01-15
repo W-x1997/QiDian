@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,20 +74,28 @@ public class UserServlet extends HttpServlet {
 
 
 
-    public void register(HttpServletRequest request,HttpServletResponse response) throws IOException, ServletException{
-        response.setCharacterEncoding("UTF-8");
+    public void register(HttpServletRequest request,HttpServletResponse response) throws IOException{
+       response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         String uaccount=request.getParameter("uaccout");
         String upwd1=request.getParameter("password");
-        String upwd2=request.getParameter("password2");
+     //   String upwd2=request.getParameter("password2");
         String nickname=request.getParameter("nickname");
         Date date=new Date();
         Timestamp time=new Timestamp(date.getTime());
-        String sql="insert into user_info values (0,' "+uaccount
-                +"','"+upwd1+"','"+time+"','"+nickname+"','"+time+"',"
-                +1+")";
 
-        boolean res=JdbcUtil.insert(sql);
+        UserInfo user = new UserInfo();
+        user.setUaccount(uaccount);
+        user.setUpwd(upwd1);
+        user.setCreatetime(time);
+        user.setNickname(nickname);
+        boolean res= userServiceI.insert(user);
+
+
+//        String sql="insert into user_info values (0,' "+uaccount
+//                +"','"+upwd1+"','"+time+"','"+nickname+"','"+time+"',"
+//                +1+")";
+
         System.out.println("是否成功："+res);
 
         String msg;
@@ -125,8 +132,7 @@ public class UserServlet extends HttpServlet {
         UserInfo user=new UserInfo();
         user.setUaccount(uaccount);
         user.setUpwd(upwd1);
-        List<UserInfo> list;
-        list=userServiceI.selectByUser(user);
+       List<UserInfo> list=userServiceI.selectByUser(user);
 
         System.out.println(uaccount+" "+upwd1+" "+list.size());
 
