@@ -10,6 +10,31 @@ public class Chapter {
    private String churl;
    private Timestamp createtime;
    private Integer nextid;
+
+    public String getChname() {
+        return chname;
+    }
+
+    public Integer getChno() {
+        return chno;
+    }
+
+    public Timestamp getCreatetime() {
+        return createtime;
+    }
+
+    public Integer getNextid() {
+        return nextid;
+    }
+
+    public Integer getPreid() {
+        return preid;
+    }
+
+    public Integer getWordcount() {
+        return wordcount;
+    }
+
     private Integer preid;
     private Integer vno;
     private Integer wordcount;
@@ -22,17 +47,13 @@ public class Chapter {
         this.bno = bno;
     }
 
-    public String getChname() {
-        return chname;
-    }
+
 
     public void setChname(String chname) {
         this.chname = chname;
     }
 
-    public Integer getChno() {
-        return chno;
-    }
+
 
     public void setChno(Integer chno) {
         this.chno = chno;
@@ -46,25 +67,19 @@ public class Chapter {
         this.churl = churl;
     }
 
-    public Timestamp getCreatetime() {
-        return createtime;
-    }
+
 
     public void setCreatetime(Timestamp createtime) {
         this.createtime = createtime;
     }
 
-    public Integer getNextid() {
-        return nextid;
-    }
+
 
     public void setNextid(Integer nextid) {
         this.nextid = nextid;
     }
 
-    public Integer getPreid() {
-        return preid;
-    }
+
 
     public void setPreid(Integer preid) {
         this.preid = preid;
@@ -78,9 +93,7 @@ public class Chapter {
         this.vno = vno;
     }
 
-    public Integer getWordcount() {
-        return wordcount;
-    }
+
 
     public void setWordcount(Integer wordcount) {
         this.wordcount = wordcount;

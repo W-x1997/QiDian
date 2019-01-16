@@ -10,14 +10,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class BookServlet extends HttpServlet {
 BookServiceImp bookServiceI=new BookServiceImp();
 
 
-public void selectAllBook(HttpServletRequest request, HttpServletResponse response){
-          String sql="select * from book_info";
+public void selectAllBook(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+
+    request.setCharacterEncoding("UTF-8");
+
+    String bookName=request.getParameter("bname");
+    String sql="";
+
+
+    if("".equals(bookName)||null==bookName){  //模糊查询的判定
+        sql="select * from book_info";
+    }else {
+        sql="select * from book_info where bname like '%"+bookName+"%'";
+    }
+
+
           List<BookInfoP> bookInfoList=bookServiceI.selectAllBook(sql);
           request.setAttribute("bookList",bookInfoList);
 
@@ -37,7 +51,7 @@ public void selectAllBook(HttpServletRequest request, HttpServletResponse respon
 
     public void showchapter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-           String bno=request.getParameter("bno");
+         String bno=request.getParameter("bno");
            String chno=request.getParameter("chno");
         Chapter chapter=bookServiceI.selectChapterByVnoChno(bno,chno);
         List<String> chapterList=ReadWriter.readChapterByUrl(chapter.getChurl());

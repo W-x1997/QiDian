@@ -105,7 +105,7 @@
 
 			<div class="book-img">
 				<a class="J-getJumpUrl" id="bookImg" href="" data-bid="3602691"><img
-					src="/qidian/img/bookcontent/${book.img }.jpg"></a>
+					src="/img/bookcontent/${book.img }.jpg"></a>
 			</div>
 
 			<div class="book-info ">
@@ -167,9 +167,8 @@
 						<h3>
 							<a class="subscri" href="" target="_blank"> <em class="btn"><b
 									class="iconfont"></b>分卷阅读</em>
-							</a> ${volume.vname } <i>.</i> 共${volume.chapterCount}章 <span
-								class="free">${volume.state==0?"vip":"免费" }</span> <em
-								class="count">本卷共 <cite>${volume.wordCount }</cite>字
+							</a> ${volume.vname } <i>.</i> 共${volume.chaptercount}章 <em
+								class="count">本卷共 <cite>${volume.wordcount }</cite>字
 							</em>
 						</h3>
 						<ul class="cf">
